@@ -1,0 +1,63 @@
+plugins {
+	id 'java-library'
+	id 'maven-publish'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+group = 'com.kyj.fmk'
+version = "0.0.1-SNAPSHOT"
+
+java {
+	withSourcesJar()
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.boot:spring-boot-dependencies:3.5.3"
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url = uri("http://192.168.56.1:9090/repository/bottle-story/")
+		allowInsecureProtocol = true // HTTP 사용 시 필수
+		credentials {
+			username = "admin"
+			password = "1234"
+		}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			name = "nexus"
+			url = uri("http://192.168.56.1:9090/repository/project-core-snapshot/")
+			allowInsecureProtocol = true
+			credentials {
+				username = "admin"
+				password = "1234"
+			}
+		}
+	}
+}
+
+configurations.all {
+	resolutionStrategy {
+		// SNAPSHOT 은 항상 최신 버전 사용
+		cacheChangingModulesFor 0, 'seconds'
+	}
+}
+dependencies {
+		api 'com.kyj.fmk:bottle-core-dev:0.0.1-SNAPSHOT'
+		annotationProcessor 'org.projectlombok:lombok'
+
+}
