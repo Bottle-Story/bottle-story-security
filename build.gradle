@@ -40,7 +40,7 @@ publishing {
 	repositories {
 		maven {
 			name = "nexus"
-			url = uri("http://192.168.56.1:9090/repository/project-core-snapshot/")
+			url = uri("http://192.168.56.1:9090/repository/bottle-story/")
 			allowInsecureProtocol = true
 			credentials {
 				username = "admin"
