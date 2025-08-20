@@ -57,42 +57,14 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
-
-        boolean isAdditionalInfo = customUserDetails.isAdditionalInfo();
-
-        if(isAdditionalInfo){
-            isAddtionInfoToJoin(request, response, authentication);
-        }else{
             isExistMemberToLogin(request, response, authentication);
-        }
-    }
-
-
-    /**
-     * 추가정보 입력페이지
-     * @param request
-     * @param response
-     * @param authentication
-     * @throws IOException
-     */
-    private void isAddtionInfoToJoin(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                     Authentication authentication) throws IOException {
-
-        CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
-
-        String joinJwt = jwtUtil.createJoinJwt("joinJwt",customUserDetails.getUsrId(),10 * 60 * 1000L);
-        //회원가입 토큰 레디스저장
-
-        tokenRedisService.addRefresh(RedisKey.MEMBER_ADDITIONL_INFO,joinJwt);
-        //회원가입 추가정보입력을 위한 토큰 쿠키전송
-        ResponseCookie joinJwtCookie= CookieUtil.createCookie("joinJwt",joinJwt,600,"/");
-
-        response.addHeader(HttpHeaders.SET_COOKIE, joinJwtCookie.toString());
-        response.sendRedirect(additionInfoUrl);
 
     }
+
+
+
 
     /**
      * 이미 존재하는 회원 , 성공리다이렉트
