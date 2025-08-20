@@ -83,12 +83,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String usrId = customUserDetails.getUsrId();
         String usrSeqId = String.valueOf(customUserDetails.getUsrSeqId());
         String email = customUserDetails.getEmail();
-        String nickname = customUserDetails.getNickname();
-        String dtyCd = customUserDetails.getDtyCd();
-        String career = String.valueOf(customUserDetails.getCareer());
 
-        List<String> skillCds = customUserDetails.getSkillCds();
-        String skillCdsStr = (skillCds != null) ? String.join(",", skillCds) : "";
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         String roles = authorities.stream()
@@ -97,10 +92,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
 
         //새로운 jwt 토큰 발급
-        String access = jwtUtil.createJwt("access", usrId, usrSeqId,nickname,skillCdsStr,
-                email,roles,dtyCd,career,300000L);//엑세스 토큰
-        String refresh = jwtUtil.createJwt("refresh", usrId, usrSeqId,nickname,skillCdsStr,
-                email,roles,dtyCd,career,86400000L); //리프레시 토큰
+        String access = jwtUtil.createJwt("access", usrId, usrSeqId,
+                email,roles,300000L);//엑세스 토큰
+        String refresh = jwtUtil.createJwt("refresh", usrId, usrSeqId,
+                email,roles,86400000L); //리프레시 토큰
 
         tokenRedisService.addRefresh(usrId,refresh);
 
