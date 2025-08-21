@@ -85,7 +85,10 @@ public class SecurityConfig {
 
                             CorsConfiguration configuration = new CorsConfiguration();
 
-                            configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000","https://bottle-story-dev.com:31443"));
+                            configuration.setAllowedOrigins(Arrays.asList(
+                                    "http://localhost:3000",
+                                    "https://bottle-story-dev.com:31443"
+                            ));
                             configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                             configuration.setAllowCredentials(true);
                             configuration.setAllowedHeaders(Collections.singletonList("*"));
