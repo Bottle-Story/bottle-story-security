@@ -41,10 +41,12 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         String usrId = oAuth2Response.getProvider()+"_"+oAuth2Response.getProviderId();
         String email = oAuth2Response.getEmail();
 
-        Boolean isExist = authRepository.isExist(usrId);
-
         mem.setUsrId(usrId);
         mem.setEmail(email);
+
+        Boolean isExist = authRepository.isExist(mem);
+
+
 
         if (isExist == null || !isExist) {
             //usrid값 멤버dto담기
