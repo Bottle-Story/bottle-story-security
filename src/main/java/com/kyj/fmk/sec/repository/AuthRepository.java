@@ -20,7 +20,7 @@ public class AuthRepository {
      * @param usrId
      * @return
      */
-    public Boolean isExist(String usrId){
+    public Boolean isExist(String email,String usrId){
         return authMapper.isExist(usrId);
     }
 

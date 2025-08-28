@@ -41,7 +41,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         String usrId = oAuth2Response.getProvider()+"_"+oAuth2Response.getProviderId();
         String email = oAuth2Response.getEmail();
 
-        Boolean isExist = authRepository.isExist(usrId);
+        Boolean isExist = authRepository.isExist(email,usrId);
 
         mem.setUsrId(usrId);
         mem.setEmail(email);
