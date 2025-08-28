@@ -17,11 +17,11 @@ public class AuthRepository {
 
     /**
      * 해당 유저아이디에 해당하는 데이터베이스가 존재하는지 확인하는 repo
-     * @param usrId
+     * @param memberDTO
      * @return
      */
-    public Boolean isExist(String email,String usrId){
-        return authMapper.isExist(usrId);
+    public Boolean isExist(MemberDTO memberDTO){
+        return authMapper.isExist(memberDTO);
     }
 
     /**
