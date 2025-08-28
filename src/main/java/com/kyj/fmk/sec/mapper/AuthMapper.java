@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AuthMapper {
     public Boolean isExist(MemberDTO memberDTO);
-    public MemberDTO findByUsrId(String usrId);
+    public MemberDTO findByUsrId(MemberDTO memberDTO);
     public void insertMember(MemberDTO memberDTO);
     public void updateMember(MemberDTO memberDTO);
 

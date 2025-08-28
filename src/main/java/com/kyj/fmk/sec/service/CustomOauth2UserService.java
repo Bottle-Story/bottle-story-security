@@ -53,12 +53,15 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
             //추가정보입력 플래그 true
             authRepository.insertMember(mem);
 
+
             return new CustomOAuth2User(mem,false);
         }
         else {
 
             //회원정보 셀렉트
             //usr_id 업데이트
+            MemberDTO findMem = authRepository.findByUsrId(mem);
+            mem.setUsrSeqId(findMem.getUsrSeqId());
             authRepository.updateMember(mem);
 
             return new CustomOAuth2User(mem,false);
