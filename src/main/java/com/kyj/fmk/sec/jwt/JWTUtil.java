@@ -68,6 +68,15 @@ public final class JWTUtil {
         return true;
     }
 
+    public boolean validate(String token) {
+        try {
+            Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+        } catch (Exception e){
+            return false;
+        }
+
+        return true;
+    }
 
 
     public String getUsrId(String token) {
