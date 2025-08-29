@@ -61,8 +61,8 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
             //회원정보 셀렉트
             //usr_id 업데이트
             MemberDTO findMem = authRepository.findByUsrId(mem);
+            mem.setUsrSeqId(findMem.getUsrSeqId());
             if(!findMem.getUsrId().equals(mem.getUsrId())){
-                mem.setUsrSeqId(findMem.getUsrSeqId());
                 authRepository.updateMember(mem);
             }
 
