@@ -47,11 +47,11 @@ public class SecurityConfig {
     private final CustomSuccessHandler customSuccessHandler;
     private final TokenService tokenService;
     private final List<HandlerMapping> handlerMappings;
-    private final KafkaTemplate<String,String> kafkaTemplate;
+
     private Environment env;
 
     private final EndpointUrlCollector endpointUrlCollector;
-    private final ObjectMapper objectMapper;
+
 
 
 
@@ -60,16 +60,12 @@ public class SecurityConfig {
                           CustomSuccessHandler customSuccessHandler,
                           TokenService tokenService, List<HandlerMapping> handlerMappings,
                           EndpointUrlCollector endpointUrlCollector,
-                          ObjectMapper objectMapper,
-                          KafkaTemplate<String,String> kafkaTemplate,
                           Environment env){
         this.customOauth2UserService = customOauth2UserService;
         this.jwtUtil = jwtUtil;
         this.customSuccessHandler = customSuccessHandler;
         this.tokenService = tokenService;
         this.handlerMappings = handlerMappings;
-        this.kafkaTemplate = kafkaTemplate;
-        this.objectMapper = objectMapper;
         this.endpointUrlCollector = endpointUrlCollector;
         this.env=env;
     }
@@ -137,7 +133,7 @@ public class SecurityConfig {
                         ex.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
         //로그아웃
         http    .logout((lg) ->
-                        lg.logoutSuccessHandler(new CustomLogoutSuccessHandler(kafkaTemplate,objectMapper)));
+                        lg.logoutSuccessHandler(new CustomLogoutSuccessHandler()));
         //JWTFilter 추가
         http
                 .addFilterAfter(new JwtFilter(jwtUtil), OAuth2LoginAuthenticationFilter.class);
