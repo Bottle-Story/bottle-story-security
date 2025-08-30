@@ -1,4 +1,4 @@
-package com.kyj.fmk.sec.dto.member;
+package com.kyj.fmk.sec.dto.kafka;
 
 import com.kyj.fmk.core.model.KafkaTopic;
 import com.kyj.fmk.core.model.dto.BaseKafkaDTO;
