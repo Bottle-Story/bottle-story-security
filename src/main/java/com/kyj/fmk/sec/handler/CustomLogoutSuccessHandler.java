@@ -5,15 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kyj.fmk.core.exception.custom.KyjBizException;
 import com.kyj.fmk.core.exception.custom.KyjSysException;
 import com.kyj.fmk.core.model.enm.CmErrCode;
-import com.kyj.fmk.sec.dto.member.LogoutKafkaDTO;
+import com.kyj.fmk.sec.dto.kafka.LogoutKafkaDTO;
 import com.kyj.fmk.sec.dto.oauth2.CustomOAuth2User;
 import com.kyj.fmk.sec.dto.res.SecurityResponse;
-import com.kyj.fmk.sec.service.TokenService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -54,8 +52,8 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             throw new KyjBizException(CmErrCode.CM019);
 
         }
-
         kafkaTemplate.send(logoutKafkaDTO.getTopic(),data);
+        System.out.println("logoutKafkaDTO = " + logoutKafkaDTO);
     }
 
 }
